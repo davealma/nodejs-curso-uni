@@ -1,5 +1,10 @@
 var http = require('http');
 var rt = require('random-token');
+var port = 8989;
+
+//servidor de archivos estaticos
+var node_static = require("node-static");
+var static_files = new node_static.Server(__dirname);
 
 http.createServer(function(request, response) {
     if(request.method === 'POST') {
@@ -8,13 +13,18 @@ http.createServer(function(request, response) {
         response.end();
         return;
     }
-    response.writeHead(200);
-  //setTimeout( () => {
-    response.writeHead(200, {"Content-Type": "text/plain"});
-    response.write("Hola!!!: " + rt(4));
-    response.end();
-  //}, 5000);
+    if (request.method === 'GET') {
+      if (/^\/\d+(?=$|[\/?#])/.test(request.url)) {
+	request.addListener("end", function() {
+	  var file1 = request.url.substring(1);
+	  var res = file1.concat(".html");
+          console.log(res);	
+	  request.url = request.url.replace(/^\/(\d+).*$/, res);
+	  static_files.serve(request, response);
+	});
+	request.resume();
+      }
+    }
+}).listen(port);
 
-}).listen(8080);
-
-console.log('Escuchando!!');
+console.log('Escuchando en '+port);
