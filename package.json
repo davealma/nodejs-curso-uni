@@ -4,10 +4,13 @@
   "description": "Curso",
   "main": "index.js",
   "dependencies": {
+    "assert": "^1.4.1",
     "asynquence": "^0.9.0",
+    "mongodb": "^2.2.10",
     "node-static": "^0.7.9",
     "promise": "^7.1.1",
-    "random-token": "0.0.8"
+    "random-token": "0.0.8",
+    "socket.io": "^1.5.0"
   },
   "devDependencies": {},
   "scripts": {
