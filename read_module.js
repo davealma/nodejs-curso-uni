@@ -13,6 +13,6 @@ var fs = require("fs");
 //module.exports.say = say;
 //module.exports.say_async = say_async;
 module.exports = {
-  say: say,
-  say_async: say_async
+  read: say,
+  read_async: say_async
 };
